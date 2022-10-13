@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 
 public class UserManager {
 
-    private final String[] email = {"bestMail_1", "worstMail_1", "justAMail_1", "noMail_1", "MailMail_1", "funnyMail_1", "sadMail_1"};
+    private final String[] email = {"bestMail_2", "worstMail_2", "justAMail_2", "noMail_2", "MailMail_2", "funnyMail_2", "sadMail_2"};
     private final String[] password = {"bestPass", "Password", "pAssworD", "YouShallNotPass", "boringpassword", "123456798", "qwerty"};
     private final String[] name = {"NoName", "HaveName", "JustAName", "Nameless", "BestName", "Sam", "Dean"};
 
@@ -56,12 +56,14 @@ public class UserManager {
         String createAPI = "/api/auth/register";
         System.out.println("Данные пользователя: " + email + ", " + password + ", " + name);
         CreateUser user = new CreateUser(email, password, name);
-        given()
+        Response resp = given()
                 .header("Content-type", "application/json")
                 .body(user)
                 .when()
                 .post(createAPI);
-        System.out.println("Пользователь создан");
+        if (resp.getStatusCode()==200) System.out.println("Пользователь создан");
+        else System.out.println("Пользователь не создан, код ответа: " + resp.getStatusCode() +
+                ", ответ: " + resp.getBody().asString());
     }
 
 }

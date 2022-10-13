@@ -15,14 +15,11 @@ public class Registration extends Base implements Runnable {
     String email;
     String password;
     String name;
-    private final By registrationButton = By.xpath(".//a[text() = 'Зарегистрироваться']");
     private final By mainFieldName = By.xpath(".//div[@class='Auth_login__3hAey']/h2");
-
     private final By registrationNameInput = By.xpath(".//label[text()='Имя']/parent::div/input");
     private final By registrationEmailInput = By.xpath(".//label[text() = 'Email']/parent::div/input");
     private final By registrationPasswordInput = By.xpath(".//label[text() = 'Пароль']/parent::div/input");
     private final By applyRegistrationButton = By.xpath(".//button[text() = 'Зарегистрироваться']");
-
     private final By notCorrectPasswordField = By.xpath(".//p[@class='input__error text_type_main-default']");
     private final By existingUserField = By.xpath(".//p[@class='input__error text_type_main-default']");
 
@@ -33,11 +30,6 @@ public class Registration extends Base implements Runnable {
         driver.get(url);
         userManager = new UserManager();
         waitForLoadHomePage();
-    }
-
-    public void clickRegistrationButton() {
-        driver.findElement(registrationButton).click();
-        waitForRegistrationPage();
     }
 
     public void fillRegistrationFields() {

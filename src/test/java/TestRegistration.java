@@ -5,23 +5,25 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import PageObjects.Registration;
+import praktikum.Driver;
 import praktikum.UserManager;
 
 import static org.junit.Assert.*;
 
-public class TestRegistration {
+public class TestRegistration extends BaseTest {
     private WebDriver browser;
     private Registration reg;
     private UserManager userManager;
     private String email;
     private String password;
     private String name;
+    Driver driver;
 
     @Before
-    public void setUp() {
-//        browser = DriverFactory.getBrowser();
-        WebDriverManager.chromedriver().setup();
-        browser = new ChromeDriver();
+    public void setUp() throws Exception {
+        String browserName = getParameter("browser");
+        driver = new Driver(browserName);
+        browser = driver.getDriver();
         reg = new Registration(browser);
         userManager = new UserManager();
 
