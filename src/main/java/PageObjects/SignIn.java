@@ -10,8 +10,6 @@ public class SignIn extends Base {
 
     private final String url = "https://stellarburgers.nomoreparties.site/";
 
-    private final By privateAccountButton = By.xpath(".//p[text()='Личный Кабинет']");
-
     private final By signInEmailInput = By.xpath(".//label[text() = 'Email']/parent::div/input");
     private final By signInPasswordInput = By.xpath(".//label[text() = 'Пароль']/parent::div/input");
     private final By enterButton = By.xpath(".//button[text()='Войти']");

@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import praktikum.Driver;
 import praktikum.UserManager;
 
 import static org.junit.Assert.*;
@@ -14,9 +13,7 @@ public class TestSignin extends BaseTest {
     private WebDriver browser;
     private UserManager userManager;
     SignIn signIn;
-    private String email;
-    private String password;
-    private String name;
+    private String email, password, name;
     Driver driver;
 
     @Before
@@ -24,6 +21,10 @@ public class TestSignin extends BaseTest {
         String browserName = getParameter("browser");
         driver = new Driver(browserName);
         browser = driver.getDriver();
+
+//        WebDriverManager.chromedriver().setup();
+//        browser = new ChromeDriver();
+
         signIn = new SignIn(browser);
         userManager = new UserManager();
 
@@ -88,6 +89,4 @@ public class TestSignin extends BaseTest {
         signIn.waitForPrivateAccountPage();
         assertTrue(signIn.isEnterButtonDisplayed());
     }
-
-
 }

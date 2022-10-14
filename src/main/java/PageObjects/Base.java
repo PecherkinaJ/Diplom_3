@@ -10,7 +10,7 @@ public class Base {
     private final By registrationForm = By.xpath(".//div[@class='Auth_login__3hAey']/h2[text()='Регистрация']");
     private final By signInForm = By.xpath(".//h2[text()='Вход']");
     private final By registrationButton = By.xpath(".//a[text() = 'Зарегистрироваться']");
-    private final By privateAccountButton = By.xpath(".//p[text() = 'Личный Кабинет']");
+    protected final By privateAccountButton = By.xpath(".//p[text() = 'Личный Кабинет']");
     private final By signInAccountButton = By.xpath(".//button[text() = 'Войти в аккаунт']");
     private final By collectBurgerHeader = By.xpath(".//section[@class='BurgerIngredients_ingredients__1N8v2']/h1");
 
@@ -25,7 +25,7 @@ public class Base {
     }
 
     public void waitForPrivateAccountPage() {
-        new WebDriverWait(driver, 3)
+        new WebDriverWait(driver, 5)
                 .until(ExpectedConditions.visibilityOfElementLocated(signInForm));
     }
 

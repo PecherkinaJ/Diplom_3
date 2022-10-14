@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import praktikum.UserManager;
 
-public class Registration extends Base implements Runnable {
+public class Registration extends Base {
 
     WebDriver driver;
 
@@ -72,9 +72,4 @@ public class Registration extends Base implements Runnable {
         return driver.findElement(existingUserField).getText();
     }
 
-    @Override
-    public void run() {
-        // Delete user through API
-        userManager.deleteUser(email, password);
-    }
 }

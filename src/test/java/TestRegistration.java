@@ -1,11 +1,8 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import PageObjects.Registration;
-import praktikum.Driver;
 import praktikum.UserManager;
 
 import static org.junit.Assert.*;
@@ -13,27 +10,29 @@ import static org.junit.Assert.*;
 public class TestRegistration extends BaseTest {
     private WebDriver browser;
     private Registration reg;
-    private UserManager userManager;
     private String email;
     private String password;
     private String name;
     Driver driver;
+    UserManager userManager;
 
     @Before
     public void setUp() throws Exception {
         String browserName = getParameter("browser");
         driver = new Driver(browserName);
         browser = driver.getDriver();
-        reg = new Registration(browser);
-        userManager = new UserManager();
 
+        reg = new Registration(browser);
+
+        userManager = new UserManager();
         email = userManager.getEmail();
         password = userManager.getPassword();
         name = userManager.getName();
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws InterruptedException {
+        Thread.sleep(10000);
         browser.quit();
     }
 
@@ -41,22 +40,16 @@ public class TestRegistration extends BaseTest {
     public void testRegistrationThroughPrivateAccountButton() {
         reg.clickPrivateAccountButton();
         reg.registerUser(email, password, name);
-
-        //Delete user from DataBase in new Thread
-        reg.run();
-
+        userManager.deleteUser(email, password);
         // Check that registration field changed to signin field
         assertEquals("Вход", reg.getMainFieldName());
     }
 
     @Test
     public void testRegistrationThroughSignInAccountButton() {
-        reg.clickPrivateAccountButton();
+        reg.clickSignInAccountButton();
         reg.registerUser(email, password, name);
-
-        //Delete user from DataBase in new Thread
-        reg.run();
-
+        userManager.deleteUser(email, password);
         // Check that registration field closed and opened signin field
         assertEquals("Вход", reg.getMainFieldName());
     }
@@ -65,7 +58,6 @@ public class TestRegistration extends BaseTest {
     public void testRegistrationLessThanSixLettersInPassword() {
         reg.clickSignInAccountButton();
         reg.registerUser(email, "pass", name);
-
         // Check message
         assertEquals("Некорректный пароль", reg.checkPasswordMistakeMessage());
     }
@@ -74,25 +66,18 @@ public class TestRegistration extends BaseTest {
     public void testRegistrationZeroLettersInPassword() {
         reg.clickSignInAccountButton();
         reg.registerUser(email, " ", name);
-
-        // No message, page stays the same
+        // Check message
         assertEquals("Некорректный пароль", reg.checkPasswordMistakeMessage());
     }
 
     @Test
     public void testRegistrationWithExistingUser() {
-        reg.clickPrivateAccountButton();
-        reg.registerUser(email, password, name);
-
-        // Check that registration field closed and opened signin field
-        assertEquals("Вход", reg.getMainFieldName());
+        userManager.createUser(email, password, name);
 
         // register with the same data
         reg.clickPrivateAccountButton();
         reg.registerUser(email, password, name);
-
-        //Delete user from DataBase in new Thread
-        reg.run();
+        userManager.deleteUser(email, password);
 
         assertEquals("Такой пользователь уже существует", reg.checkExistingUserMessage());
     }

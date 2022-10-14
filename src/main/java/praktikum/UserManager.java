@@ -10,8 +10,9 @@ import static io.restassured.RestAssured.given;
 
 public class UserManager {
 
-    private final String[] email = {"bestMail_2", "worstMail_2", "justAMail_2", "noMail_2", "MailMail_2", "funnyMail_2", "sadMail_2"};
-    private final String[] password = {"bestPass", "Password", "pAssworD", "YouShallNotPass", "boringpassword", "123456798", "qwerty"};
+//    private final String[] email = {"bestMail", "worstMail"};
+    private final String[] email = {"33bestMail", "33worstMail", "33justAMail", "33noMail", "33MailMail", "33funnyMail", "33sadMail"};
+    private final String[] password = {"Password", "qwerty"};
     private final String[] name = {"NoName", "HaveName", "JustAName", "Nameless", "BestName", "Sam", "Dean"};
 
     @Step("Get one of the email")
@@ -34,34 +35,41 @@ public class UserManager {
         RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
         String loginUserAPI = "/api/auth/login";
         String deleteUserAPI = "/api/auth/user";
+        System.out.println("УДАЛЕНИЕ Данные пользователя: " + email + ", " + password);
         User user = new User(email, password);
+        System.out.println("USER = " + user.getEmail() + ",  " + user.getPassword());
         Response resp = given()
                 .header("Content-type", "application/json")
                 .body(user)
                 .when()
                 .post(loginUserAPI);
+        if (resp.getStatusCode() == 200) {
+            System.out.println("RESPONSE = " + resp.getBody().asString());
+            String tempToken = resp.then().extract().path("accessToken");
+            System.out.println("TEMPtoken = " + tempToken);
+            String token = tempToken.replace("Bearer ", "");
+            System.out.println("token = " + token);
 
-        String tempToken = resp.then().extract().path("accessToken");
-        String token = tempToken.replace("Bearer ", "");
-
-        given()
-                .auth().oauth2(token)
-                .delete(deleteUserAPI);
-        System.out.println("Пользователь удален");
+            resp = given()
+                    .auth().oauth2(token)
+                    .delete(deleteUserAPI);
+            if (resp.getStatusCode() == 202) System.out.println("Пользователь удален");
+            else System.out.println(email + " " + password + " не может быть удален");
+        } else System.out.println("Пользователь не найден в системе! ОШИБКА "+ resp.getStatusCode() + " " + resp.getBody().asString());
     }
 
     @Step("Create user with API")
     public void createUser(String email, String password, String name) {
         RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
         String createAPI = "/api/auth/register";
-        System.out.println("Данные пользователя: " + email + ", " + password + ", " + name);
+        System.out.println("РЕГИСТРАЦИЯ Данные пользователя: " + email + ", " + password);
         CreateUser user = new CreateUser(email, password, name);
         Response resp = given()
                 .header("Content-type", "application/json")
                 .body(user)
                 .when()
                 .post(createAPI);
-        if (resp.getStatusCode()==200) System.out.println("Пользователь создан");
+        if (resp.getStatusCode() == 200) System.out.println("Пользователь создан");
         else System.out.println("Пользователь не создан, код ответа: " + resp.getStatusCode() +
                 ", ответ: " + resp.getBody().asString());
     }
