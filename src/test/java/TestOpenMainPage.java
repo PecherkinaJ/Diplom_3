@@ -1,4 +1,6 @@
-import PageObjects.Constructor;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.chrome.ChromeDriver;
+import pageObjects.ConstructorPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class TestOpenMainPage extends BaseTest {
 
-    Constructor constructor;
+    ConstructorPage constructorPage;
     private WebDriver browser;
     Driver driver;
 
@@ -17,7 +19,9 @@ public class TestOpenMainPage extends BaseTest {
         String browserName = getParameter("browser");
         driver = new Driver(browserName);
         browser = driver.getDriver();
-        constructor = new Constructor(browser);
+//        WebDriverManager.chromedriver().setup();
+//        browser = new ChromeDriver();
+        constructorPage = new ConstructorPage(browser);
     }
 
     @After
@@ -27,61 +31,61 @@ public class TestOpenMainPage extends BaseTest {
 
     @Test
     public void testOpenPageWithStellarBurgerIconFromPrivateAccount() {
-        constructor.clickPrivateAccountButton();
-        constructor.clickStellarBurgerIcon();
-        assertTrue(constructor.collectBurgerHeaderDisplayed());
+        constructorPage.clickPrivateAccountButton();
+        constructorPage.clickStellarBurgerIcon();
+        assertTrue(constructorPage.collectBurgerHeaderDisplayed());
     }
 
     @Test
     public void testOpenPageWithStellarBurgerIconFromOrderList() {
-        constructor.openOrderList();
-        constructor.clickStellarBurgerIcon();
-        assertTrue(constructor.collectBurgerHeaderDisplayed());
+        constructorPage.openOrderList();
+        constructorPage.clickStellarBurgerIcon();
+        assertTrue(constructorPage.collectBurgerHeaderDisplayed());
     }
 
     @Test
     public void testOpenPageWithStellarBurgerIconFromRegistrationField() {
-        constructor.clickPrivateAccountButton();
-        constructor.clickRegistrationButton();
-        constructor.clickStellarBurgerIcon();
-        assertTrue(constructor.collectBurgerHeaderDisplayed());
+        constructorPage.clickPrivateAccountButton();
+        constructorPage.clickRegistrationButton();
+        constructorPage.clickStellarBurgerIcon();
+        assertTrue(constructorPage.collectBurgerHeaderDisplayed());
     }
 
     @Test
     public void testOpenPageWithStellarBurgerIconFromForgotPasswordField() {
-        constructor.clickPrivateAccountButton();
-        constructor.clickForgotPasswordLink();
-        constructor.clickStellarBurgerIcon();
-        assertTrue(constructor.collectBurgerHeaderDisplayed());
+        constructorPage.clickPrivateAccountButton();
+        constructorPage.clickForgotPasswordLink();
+        constructorPage.clickStellarBurgerIcon();
+        assertTrue(constructorPage.collectBurgerHeaderDisplayed());
     }
 
     @Test
     public void testOpenPageWithConstructorButtonFromPrivateAccount() {
-        constructor.clickPrivateAccountButton();
-        constructor.clickConstructorButton();
-        assertTrue(constructor.collectBurgerHeaderDisplayed());
+        constructorPage.clickPrivateAccountButton();
+        constructorPage.clickConstructorButton();
+        assertTrue(constructorPage.collectBurgerHeaderDisplayed());
     }
 
     @Test
     public void testOpenPageWithConstructorButtonFromOrderList() {
-        constructor.openOrderList();
-        constructor.clickConstructorButton();
-        assertTrue(constructor.collectBurgerHeaderDisplayed());
+        constructorPage.openOrderList();
+        constructorPage.clickConstructorButton();
+        assertTrue(constructorPage.collectBurgerHeaderDisplayed());
     }
 
     @Test
     public void testOpenPageWithConstructorButtonFromRegistrationField() {
-        constructor.clickPrivateAccountButton();
-        constructor.clickRegistrationButton();
-        constructor.clickConstructorButton();
-        assertTrue(constructor.collectBurgerHeaderDisplayed());
+        constructorPage.clickPrivateAccountButton();
+        constructorPage.clickRegistrationButton();
+        constructorPage.clickConstructorButton();
+        assertTrue(constructorPage.collectBurgerHeaderDisplayed());
     }
 
     @Test
     public void testOpenPageWithConstructorButtonFromForgotPasswordField() {
-        constructor.clickPrivateAccountButton();
-        constructor.clickForgotPasswordLink();
-        constructor.clickConstructorButton();
-        assertTrue(constructor.collectBurgerHeaderDisplayed());
+        constructorPage.clickPrivateAccountButton();
+        constructorPage.clickForgotPasswordLink();
+        constructorPage.clickConstructorButton();
+        assertTrue(constructorPage.collectBurgerHeaderDisplayed());
     }
 }

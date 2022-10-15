@@ -10,8 +10,7 @@ import static io.restassured.RestAssured.given;
 
 public class UserManager {
 
-//    private final String[] email = {"bestMail", "worstMail"};
-    private final String[] email = {"33bestMail", "33worstMail", "33justAMail", "33noMail", "33MailMail", "33funnyMail", "33sadMail"};
+    private final String[] email = {"01bestMail", "01worstMail", "01justAMail", "01noMail", "01ailMail", "01funnyMail", "01sadMail"};
     private final String[] password = {"Password", "qwerty"};
     private final String[] name = {"NoName", "HaveName", "JustAName", "Nameless", "BestName", "Sam", "Dean"};
 

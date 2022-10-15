@@ -1,4 +1,4 @@
-import PageObjects.Constructor;
+import pageObjects.ConstructorPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class TestSubmenu extends BaseTest {
 
-    Constructor constructor;
+    ConstructorPage constructorPage;
     private WebDriver browser;
     Driver driver;
 
@@ -17,7 +17,7 @@ public class TestSubmenu extends BaseTest {
         String browserName = getParameter("browser");
         driver = new Driver(browserName);
         browser = driver.getDriver();
-        constructor = new Constructor(browser);
+        constructorPage = new ConstructorPage(browser);
     }
 
     @After
@@ -27,32 +27,32 @@ public class TestSubmenu extends BaseTest {
 
     @Test
     public void testBunsSubmenuSelectedByDefault() {
-        assertEquals("Булки", constructor.checkSelectedSubMenu());
+        assertEquals("Булки", constructorPage.checkSelectedSubMenu());
     }
 
     @Test
     public void testSelectSauces() {
-        constructor.selectSauces();
-        assertEquals("Соусы", constructor.checkSelectedSubMenu());
+        constructorPage.selectSauces();
+        assertEquals("Соусы", constructorPage.checkSelectedSubMenu());
     }
 
     @Test
     public void testSelectFillings() {
-        constructor.selectFillings();
-        assertEquals("Начинки", constructor.checkSelectedSubMenu());
+        constructorPage.selectFillings();
+        assertEquals("Начинки", constructorPage.checkSelectedSubMenu());
     }
 
     @Test
     public void testSelectBunsAfterFillings() {
-        constructor.selectFillings();
-        constructor.selectBuns();
-        assertEquals("Булки", constructor.checkSelectedSubMenu());
+        constructorPage.selectFillings();
+        constructorPage.selectBuns();
+        assertEquals("Булки", constructorPage.checkSelectedSubMenu());
     }
 
     @Test
     public void testSelectBunsAfterSauces() {
-        constructor.selectSauces();
-        constructor.selectBuns();
-        assertEquals("Булки", constructor.checkSelectedSubMenu());
+        constructorPage.selectSauces();
+        constructorPage.selectBuns();
+        assertEquals("Булки", constructorPage.checkSelectedSubMenu());
     }
 }

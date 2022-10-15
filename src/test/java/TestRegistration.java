@@ -2,14 +2,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import PageObjects.Registration;
+import pageObjects.RegistrationPage;
 import praktikum.UserManager;
 
 import static org.junit.Assert.*;
 
 public class TestRegistration extends BaseTest {
     private WebDriver browser;
-    private Registration reg;
+    private RegistrationPage reg;
     private String email;
     private String password;
     private String name;
@@ -22,7 +22,7 @@ public class TestRegistration extends BaseTest {
         driver = new Driver(browserName);
         browser = driver.getDriver();
 
-        reg = new Registration(browser);
+        reg = new RegistrationPage(browser);
 
         userManager = new UserManager();
         email = userManager.getEmail();
@@ -31,8 +31,7 @@ public class TestRegistration extends BaseTest {
     }
 
     @After
-    public void tearDown() throws InterruptedException {
-        Thread.sleep(10000);
+    public void tearDown() {
         browser.quit();
     }
 

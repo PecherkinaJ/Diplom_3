@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: TestOpenMainPage
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 28.351 s - in TestOpenMainPage
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 27.926 s - in TestOpenMainPage

@@ -1,10 +1,8 @@
-import PageObjects.SignIn;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import pageObjects.SignInPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import praktikum.UserManager;
 
 import static org.junit.Assert.*;
@@ -12,7 +10,7 @@ import static org.junit.Assert.*;
 public class TestSignin extends BaseTest {
     private WebDriver browser;
     private UserManager userManager;
-    SignIn signIn;
+    SignInPage signInPage;
     private String email, password, name;
     Driver driver;
 
@@ -25,13 +23,13 @@ public class TestSignin extends BaseTest {
 //        WebDriverManager.chromedriver().setup();
 //        browser = new ChromeDriver();
 
-        signIn = new SignIn(browser);
+        signInPage = new SignInPage(browser);
         userManager = new UserManager();
 
         email = userManager.getEmail();
         password = userManager.getPassword();
         name = userManager.getName();
-        signIn.setUserData(email, password, name);
+        signInPage.setUserData(email, password, name);
     }
 
     @After
@@ -42,51 +40,51 @@ public class TestSignin extends BaseTest {
 
     @Test
     public void testSignInThroughPersonalAccount() {
-        signIn.clickPrivateAccountButton();
-        signIn.fillFieldsAndClickEnterButton();
-        assertTrue(signIn.collectBurgerHeaderDisplayed());
+        signInPage.clickPrivateAccountButton();
+        signInPage.fillFieldsAndClickEnterButton();
+        assertTrue(signInPage.collectBurgerHeaderDisplayed());
     }
 
     @Test
     public void testSignInThroughSignInAccountButton() {
-        signIn.clickSignInAccountButton();
-        signIn.fillFieldsAndClickEnterButton();
-        assertTrue(signIn.collectBurgerHeaderDisplayed());
+        signInPage.clickSignInAccountButton();
+        signInPage.fillFieldsAndClickEnterButton();
+        assertTrue(signInPage.collectBurgerHeaderDisplayed());
     }
 
     @Test
     public void testSignInFromRegistrationMenu() {
-        signIn.clickPrivateAccountButton();
-        signIn.clickRegistrationButton();
-        signIn.clickEnterLink();
-        signIn.fillFieldsAndClickEnterButton();
-        assertTrue(signIn.collectBurgerHeaderDisplayed());
+        signInPage.clickPrivateAccountButton();
+        signInPage.clickRegistrationButton();
+        signInPage.clickEnterLink();
+        signInPage.fillFieldsAndClickEnterButton();
+        assertTrue(signInPage.collectBurgerHeaderDisplayed());
     }
 
     @Test
     public void testSignInFromForgotPasswordMenu() {
-        signIn.clickPrivateAccountButton();
-        signIn.clickForgotPasswordLink();
-        signIn.clickEnterLink();
-        signIn.fillFieldsAndClickEnterButton();
-        assertTrue(signIn.collectBurgerHeaderDisplayed());
+        signInPage.clickPrivateAccountButton();
+        signInPage.clickForgotPasswordLink();
+        signInPage.clickEnterLink();
+        signInPage.fillFieldsAndClickEnterButton();
+        assertTrue(signInPage.collectBurgerHeaderDisplayed());
     }
 
     @Test
     public void testEnterPrivateAccountAfterAuth() {
-        signIn.clickPrivateAccountButton();
-        signIn.fillFieldsAndClickEnterButton();
-        signIn.enterToPrivateAccount();
-        assertTrue(signIn.isPrivateAccountOpened());
+        signInPage.clickPrivateAccountButton();
+        signInPage.fillFieldsAndClickEnterButton();
+        signInPage.enterToPrivateAccount();
+        assertTrue(signInPage.isPrivateAccountOpened());
     }
 
     @Test
     public void testLogOut() {
-        signIn.clickPrivateAccountButton();
-        signIn.fillFieldsAndClickEnterButton();
-        signIn.enterToPrivateAccount();
-        signIn.clickLogOutButton();
-        signIn.waitForPrivateAccountPage();
-        assertTrue(signIn.isEnterButtonDisplayed());
+        signInPage.clickPrivateAccountButton();
+        signInPage.fillFieldsAndClickEnterButton();
+        signInPage.enterToPrivateAccount();
+        signInPage.clickLogOutButton();
+        signInPage.waitForPrivateAccountPage();
+        assertTrue(signInPage.isEnterButtonDisplayed());
     }
 }
